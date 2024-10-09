@@ -1,0 +1,27 @@
+@startuml
+participant ABC as "Android Board for Control"
+participant MB as "MQTT Broker"
+participant AIB as "AI Board"
+
+AIB ->> MB: connection
+AIB -->> MB: SUB @ai-board/listen  qos 2
+
+ABC ->> AIB: BootNotification *retain* (firmware)
+
+ABC ->> MB: connection
+ABC -->> MB: SUB @ai-board/message  qos 2
+
+ABC ->> AIB: RequestStartTransaction (bottle)
+AIB -->> ABC: RequestStartTransaction (Accepted or Rejected)
+
+AIB ->> ABC: TransactionEvent (Started)
+AIB ->> ABC: TransactionEvent (Updated) [StartCameraCapture]
+AIB ->> ABC: TransactionEvent (Updated) [StopCameraCapture]
+AIB ->> ABC: TransactionEvent (Updated) [StartPrediction]
+AIB ->> ABC: TransactionEvent (Updated) [StopPrediction]
+AIB ->> ABC: TransactionEvent (Ended) [SummarizeResult]
+
+ABC ->> AIB: GetLog
+AIB -->> ABC: GetLog (Accepted)
+
+@enduml

@@ -1,0 +1,11 @@
+{
+  "id": "82dee7b5-91d5-41b2-bb8e-44c7536605e8",
+  "event": "TransactionEvent",
+  "data": {
+    "status": "Updated",
+    "detail": "StartCameraCapture",
+    "camera_index": 1,
+    "camera_detail": "can"
+  },
+  "timestamp": "2024-09-27T19:42:06.701982+00:00"
+}

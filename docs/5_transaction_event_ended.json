@@ -1,0 +1,18 @@
+{
+  "id": "82dee7b5-91d5-41b2-bb8e-44c7536605e8",
+  "event": "TransactionEvent",
+  "data": {
+    "status": "Ended",
+    "detail": "SummarizeResult",
+    "result": {
+      "status": 200,
+      "data": {
+        "isValidBottle": true,
+        "brand": "oishi",
+        "size": 500,
+        "confidence": 0.89
+      }
+    }
+  },
+  "timestamp": "2024-09-27T19:52:26.134891+00:00"
+}

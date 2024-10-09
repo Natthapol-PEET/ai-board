@@ -1,0 +1,14 @@
+services:
+  nanomq:
+    image: emqx/nanomq:0.22.8
+    container_name: nanomq
+    ports:
+      - "1883:1883" # MQTT port
+      - "8083:8083" # WebSocket port
+      - "8883:8883" # MQTT over TLS port
+    environment:
+      - NANO_MQ_USER=ai_board
+      - NANO_MQ_PASS=ai_board
+    restart: always
+
+# docker-compose -f docker-compose.nanomq.yml up

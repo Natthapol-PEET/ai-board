@@ -1,0 +1,8 @@
+{
+  "event": "BootNotification",
+  "data": {
+    "firmware_version": "1.0.0",
+    "model_version": "1.0.0"
+  },
+  "timestamp": "2024-09-27T09:18:43.070041+00:00"
+}

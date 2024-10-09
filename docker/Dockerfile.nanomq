@@ -1,0 +1,9 @@
+# Use the NanoMQ image
+FROM emqx/nanomq:0.22.8
+
+# Set environment variables for NanoMQ
+ENV NANO_MQ_USER=ai_board
+ENV NANO_MQ_PASS=ai_board
+
+# Expose necessary ports
+EXPOSE 1883 8083 8883
