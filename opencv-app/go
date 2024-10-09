@@ -4,53 +4,38 @@ set -e
 TASK=$1
 ARGS=${@:2}
 
+help__pullDependency="pull dependencics"
+task_pullDependency() {
+  sudo su
+  apt-get install python3-pip
+  apt-get install python3-opencv
 
-help__scp="docker build nanomq image"
-task_scp() {
-  IP=192.168.195.239
-
-  scp requirements.txt \
-    .env  \
-    go  \
-    Dockerfile.python \
-    .dockerignore \
-    jetson@192.168.195.239:/home/jetson/Desktop/ai-board
-  echo "|-----------------------------|"
-
-  scp -r src jetson@192.168.195.239:/home/jetson/Desktop/ai-board/src
-  echo "|-----------------------------|"
-
-  scp -r docker jetson@192.168.195.239:/home/jetson/Desktop/ai-board/docker
-  echo "|-----------------------------|"
-
-  # Script
-  scp -r script jetson@192.168.195.239:/home/jetson/Desktop/ai-board/script
-  echo "|-----------------------------|"
-
-
-  # scp test/service/camera_test.py jetson@192.168.195.239:/home/jetson/Desktop/ai-board/src
-  # scp test/service/api_client_test.py jetson@192.168.195.239:/home/jetson/Desktop/ai-board/src
-  
-
-  # scp -r ../ai-board jetson@192.168.195.239:/home/jetson/Desktop/ai-board
-  # echo "|-----------------------------|"
-
-  # jetson
+  pip3 install -r requirements.txt
 }
 
-help__buildcvApp="docker build opencv-app image"
-task_buildcvApp() {
-  docker build -f Dockerfile.opencv -t opencv-image .
+help__testCamera="run test for opencv app"
+task_testCamera() {
+  PYTHONPATH=./src python3 test/service/camera_test.py $1
 }
 
-help__runcvApp="docker run opencv-app container"
-task_runcvApp() {
-  docker run -d \
-    --name opencv-container \
-    --restart always \
-    --network="host" \
-    --ipc=host \
-    opencv-image
+help__runcvAppPreview="run test for opencv app"
+task_runcvAppPreview() {
+  PYTHONPATH=./src python3 src/main.py
+}
+
+help__deployApp="setup & run opencv app"
+task_deployApp() {
+  sudo su
+
+  ## Copy script to systemd
+  cp script/ai_board.service /etc/systemd/system/ai_board.service
+
+  ## Enable and start the service
+  systemctl enable ai_board.service
+  systemctl start ai_board.service
+
+  ## Check the status of the service
+  systemctl status ai_board.service
 }
 
 

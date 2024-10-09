@@ -12,6 +12,10 @@ task_buildNanoMQ() {
 
 help__runNanoMQ="docker run nanomq container"
 task_runNanoMQ() {
+  sudo su
+  
+  task_buildNanoMQ
+
   docker run -d \
     --name nanomq-container \
     -p 1883:1883 \
@@ -20,11 +24,6 @@ task_runNanoMQ() {
     --restart always \
     --network="host" \
     nanomq-image
-}
-
-help__buildNanoMQ="docker build nanomq image"
-task_buildNanoMQ() {
-  docker build -f Dockerfile.nanomq -t nanomq-image .
 }
 
 help__killNanoMQ="docker kill nanomq container"
