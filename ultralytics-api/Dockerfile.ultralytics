@@ -1,0 +1,27 @@
+# ใช้ภาพ ultralytics สำหรับ Jetson JetPack
+FROM ultralytics/ultralytics:latest-jetson-jetpack6 AS ultralytics
+
+# ใช้ภาพ Python 3.12 จาก Docker Hub
+FROM python:3.12-slim
+
+# คัดลอก environment และ dependencies จาก ultralytics image
+COPY --from=ultralytics /usr/src/ultralytics /usr/src/ultralytics
+
+# Set environment variables
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
+
+# Set the working directory
+WORKDIR /app
+
+# คัดลอก environment file, requirements file, และ source code
+COPY ../.env /app
+COPY ../requirements.txt /app
+COPY ../src /app
+
+# ติดตั้ง dependencies จาก requirements.txt
+RUN pip install --no-cache-dir --upgrade pip && \
+    pip install --no-cache-dir -r requirements.txt
+
+# คำสั่งเพื่อรันแอปพลิเคชันของคุณ
+CMD ["python", "main.py"]

@@ -13,13 +13,10 @@ from service.camera import CameraCapture
 from service.mqtt_client import MQTTClient
 import threading
 
-from service.prediction import Prediction
-
 # Initialize logging
 LogFlight.initialize()
 
 apiClient = ApiClient(mock_image=False)
-model = Prediction()
 
 
 def on_event_update():
@@ -92,42 +89,26 @@ def on_event_update():
         qos=2,
     )
 
-    # call predict api
-    predict_with_api = True
-
     try:
         resp = apiClient.predict_image(
             image_file_path=None,
             prediction_type=Globals.objectType,
         )
     except Exception:
-        predict_with_api = False
+        LogFlight.error(e)
 
-        try:
-            item = "can"
-            filename = "can.jpg"
+        mqtt_client.publish(
+            Configs.mqttPublishTopic,
+            AckResponse(
+                id=Globals.transactionId,
+                status=False,
+                reason=str(e.message) if hasattr(e, "message") else str(e),
+            ),
+            qos=2,
+        )
 
-            if Globals.objectType == "bottle":
-                item = "bottle"
-                filename = "bottle.jpg"
-
-            prediction_local_results = model.process(item, filename)
-            LogFlight.info(f"prediction_local_results: {prediction_local_results}")
-        except Exception as e:
-            LogFlight.error(e)
-
-            mqtt_client.publish(
-                Configs.mqttPublishTopic,
-                AckResponse(
-                    id=Globals.transactionId,
-                    status=False,
-                    reason=str(e.message) if hasattr(e, "message") else str(e),
-                ),
-                qos=2,
-            )
-
-            clear_globals()
-            return
+        clear_globals()
+        return
 
     # stop predict
     mqtt_client.publish(
@@ -150,9 +131,7 @@ def on_event_update():
                 "detail": "SummarizeResult",
                 "result": {
                     "status": resp.status_code,
-                    "data": (
-                        resp.json() if predict_with_api else prediction_local_results
-                    ),
+                    "data": resp.json(),
                     # "data": {
                     #     "isValidBottle": True,
                     #     "brand": "oishi",

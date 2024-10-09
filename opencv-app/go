@@ -38,6 +38,21 @@ task_scp() {
   # jetson
 }
 
+help__buildcvApp="docker build opencv-app image"
+task_buildcvApp() {
+  docker build -f Dockerfile.opencv -t opencv-image .
+}
+
+help__runcvApp="docker run opencv-app container"
+task_runcvApp() {
+  docker run -d \
+    --name opencv-container \
+    --restart always \
+    --network="host" \
+    --ipc=host \
+    opencv-image
+}
+
 
 ## main
 list_all_helps() {

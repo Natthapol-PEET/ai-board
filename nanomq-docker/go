@@ -27,6 +27,12 @@ task_buildNanoMQ() {
   docker build -f Dockerfile.nanomq -t nanomq-image .
 }
 
+help__killNanoMQ="docker kill nanomq container"
+task_killNanoMQ() {
+  docker kill nanomq-container
+  docker rm nanomq-container
+}
+
 
 ## main
 list_all_helps() {
