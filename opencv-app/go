@@ -6,7 +6,6 @@ ARGS=${@:2}
 
 help__pullDependency="pull dependencics"
 task_pullDependency() {
-  sudo su
   apt-get install python3-pip
   apt-get install python3-opencv
 
@@ -25,8 +24,6 @@ task_runcvAppPreview() {
 
 help__deployApp="setup & run opencv app"
 task_deployApp() {
-  sudo su
-
   ## Copy script to systemd
   cp script/ai_board.service /etc/systemd/system/ai_board.service
 

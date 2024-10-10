@@ -12,8 +12,6 @@ task_buildNanoMQ() {
 
 help__runNanoMQ="docker run nanomq container"
 task_runNanoMQ() {
-  sudo su
-  
   task_buildNanoMQ
 
   docker run -d \
