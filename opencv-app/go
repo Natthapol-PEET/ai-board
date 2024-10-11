@@ -35,6 +35,16 @@ task_deployApp() {
   systemctl status ai_board.service
 }
 
+help__statusApp="status opencv app"
+task_statusApp() {
+  systemctl status ai_board.service
+}
+
+help__stopApp="stop opencv app"
+task_stopApp() {
+  systemctl stop ai_board.service
+}
+
 
 ## main
 list_all_helps() {
