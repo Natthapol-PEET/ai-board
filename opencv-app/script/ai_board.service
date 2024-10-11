@@ -8,7 +8,6 @@ WorkingDirectory=/home/jetson/Desktop/ai-board/opencv-app
 StandardOutput=inherit
 StandardError=inherit
 Restart=always
-User=jetson
 
 [Install]
 WantedBy=multi-user.target
