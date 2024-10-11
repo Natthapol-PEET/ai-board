@@ -40,6 +40,11 @@ task_statusApp() {
   systemctl status ai_board.service
 }
 
+help__logApp="log opencv app"
+task_logApp() {
+  sudo journalctl -u ai_board.service -f
+}
+
 help__stopApp="stop opencv app"
 task_stopApp() {
   systemctl stop ai_board.service
