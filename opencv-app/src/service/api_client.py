@@ -46,10 +46,10 @@ class ApiClient:
         # with open(image_path, "rb") as f:
         #     files = {"file": f}
         #     LogFlight.info(files)
-        try:
-            response = self.post_with_retries(endpoint_url, files)
-        except (requests.RequestException, BrokenPipeError) as e:
-            return e
+ 
+        response = self.post_with_retries(endpoint_url, files)
+        if isinstance(response, Exception):
+            return response
 
         # response = requests.post(endpoint_url, files=files, timeout=120)
         LogFlight.warning(f"Response code: {response.status_code}")
