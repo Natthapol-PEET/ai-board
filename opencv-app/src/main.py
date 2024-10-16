@@ -94,8 +94,22 @@ def on_event_update():
             image_file_path=None,
             prediction_type=Globals.objectType,
         )
+
+        if isinstance(resp, Exception):
+            mqtt_client.publish(
+                Configs.mqttPublishTopic,
+                AckResponse(
+                    id=Globals.transactionId,
+                    status=False,
+                    reason=resp.strerror,
+                ),
+                qos=2,
+            )
+
+            clear_globals()
+            return
     except Exception:
-        LogFlight.error(e)
+        LogFlight.error(f"Failed to predict {Globals.objectType}")
 
         mqtt_client.publish(
             Configs.mqttPublishTopic,
