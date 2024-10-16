@@ -49,7 +49,6 @@ class ApiClient:
         try:
             response = self.post_with_retries(endpoint_url, files)
         except (requests.RequestException, BrokenPipeError) as e:
-            LogFlight.warning(f"Request failed: {e}")
             return e
 
         # response = requests.post(endpoint_url, files=files, timeout=120)
@@ -66,4 +65,5 @@ class ApiClient:
                 if attempt < max_retries - 1:
                     time.sleep(delay)
                     continue
+                LogFlight.warning(f"Request failed: {e}")
                 return e
