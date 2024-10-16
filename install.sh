@@ -22,7 +22,13 @@
 # chmod +x install.sh
 # ./install.sh
 
-sudo su
+
+# Download source code
+cd /home/jetson/Desktop
+git clone https://github.com/Natthapol-PEET/ai-board.git
+
+# Change directory
+cd /home/jetson/Desktop/ai-board
 
 # Install nanomq
 cd nanomq-docker
