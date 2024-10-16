@@ -101,7 +101,7 @@ def on_event_update():
                 AckResponse(
                     id=Globals.transactionId,
                     status=False,
-                    reason=resp.strerror,
+                    reason=str(resp.strerror) if hasattr(resp, "message") else str(resp),
                 ),
                 qos=2,
             )
