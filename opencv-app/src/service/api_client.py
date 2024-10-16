@@ -31,13 +31,13 @@ class ApiClient:
 
         LogFlight.info(f"image_file_path: {image_file_path}")
         image_path = image_file_path
-        LogFlight.info(f"image_path: {image_path}")
 
         if image_file_path is None:
             if self.mock_image:
                 image_path = self.get_mock_image(prediction_type)
             else:
                 image_path = self.get_image(prediction_type)
+        LogFlight.info(f"image_path: {image_path}")
 
         files = {
             "file": open(image_path, "rb"),
@@ -50,7 +50,7 @@ class ApiClient:
             response = self.post_with_retries(endpoint_url, files)
         except (requests.RequestException, BrokenPipeError) as e:
             LogFlight.warning(f"Request failed: {e}")
-            raise e
+            return e
 
         # response = requests.post(endpoint_url, files=files, timeout=120)
         LogFlight.warning(f"Response code: {response.status_code}")
@@ -66,4 +66,4 @@ class ApiClient:
                 if attempt < max_retries - 1:
                     time.sleep(delay)
                     continue
-                raise e
+                return e
