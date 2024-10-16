@@ -9,23 +9,25 @@ help__scp="docker build nanomq image"
 task_scp() {
   IP=192.168.195.239
 
-  scp requirements.txt \
-    .env  \
-    go  \
-    Dockerfile.python \
-    .dockerignore \
-    jetson@192.168.195.239:/home/jetson/Desktop/ai-board
-  echo "|-----------------------------|"
+  scp install.sh jetson@192.168.243.239:/home/jetson/Desktop/install.sh
 
-  scp -r src jetson@192.168.195.239:/home/jetson/Desktop/ai-board/src
-  echo "|-----------------------------|"
+  # scp requirements.txt \
+  #   .env  \
+  #   go  \
+  #   Dockerfile.python \
+  #   .dockerignore \
+  #   jetson@192.168.195.239:/home/jetson/Desktop/ai-board
+  # echo "|-----------------------------|"
 
-  scp -r docker jetson@192.168.195.239:/home/jetson/Desktop/ai-board/docker
-  echo "|-----------------------------|"
+  # scp -r src jetson@192.168.195.239:/home/jetson/Desktop/ai-board/src
+  # echo "|-----------------------------|"
 
-  # Script
-  scp -r script jetson@192.168.195.239:/home/jetson/Desktop/ai-board/script
-  echo "|-----------------------------|"
+  # scp -r docker jetson@192.168.195.239:/home/jetson/Desktop/ai-board/docker
+  # echo "|-----------------------------|"
+
+  # # Script
+  # scp -r script jetson@192.168.195.239:/home/jetson/Desktop/ai-board/script
+  # echo "|-----------------------------|"
 
 
   # scp test/service/camera_test.py jetson@192.168.195.239:/home/jetson/Desktop/ai-board/src
