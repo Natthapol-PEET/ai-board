@@ -12,8 +12,6 @@ task_buildNanoMQ() {
 
 help__runNanoMQ="docker run nanomq container"
 task_runNanoMQ() {
-  task_buildNanoMQ
-
   docker run -d \
     --name nanomq-container \
     -p 1883:1883 \
