@@ -29,8 +29,9 @@ class ApiClient:
     def predict_image(self, prediction_type=None, image_file_path=None):
         endpoint_url = self.get_url(prediction_type)
 
-        LogFlight.info(image_file_path)
+        LogFlight.info(f"image_file_path: {image_file_path}")
         image_path = image_file_path
+        LogFlight.info(f"image_path: {image_path}")
 
         if image_file_path is None:
             if self.mock_image:
@@ -45,11 +46,15 @@ class ApiClient:
         # with open(image_path, "rb") as f:
         #     files = {"file": f}
         #     LogFlight.info(files)
-        response = self.post_with_retries(endpoint_url, files)
+        try:
+            response = self.post_with_retries(endpoint_url, files)
+        except (requests.RequestException, BrokenPipeError) as e:
+            LogFlight.warning(f"Request failed: {e}")
+            raise e
 
         # response = requests.post(endpoint_url, files=files, timeout=120)
-        LogFlight.warning(response.status_code)
-        LogFlight.warning(response.text)
+        LogFlight.warning(f"Response code: {response.status_code}")
+        LogFlight.warning(f"Response text: {response.text}")
         return response
 
     def post_with_retries(self, url, files, max_retries=3, delay=5):

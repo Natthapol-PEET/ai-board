@@ -7,7 +7,7 @@ ARGS=${@:2}
 
 help__scp="docker build nanomq image"
 task_scp() {
-  IP=192.168.195.239
+  IP=192.168.243.239
 
   scp install.sh jetson@192.168.243.239:/home/jetson/Desktop/install.sh
 
