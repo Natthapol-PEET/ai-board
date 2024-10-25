@@ -49,7 +49,7 @@ class ApiClient:
  
         response = self.post_with_retries(endpoint_url, files)
         if response.status_code != 200:
-            return Exception(f"Request failed with status code: {response.status_code}")
+            return Exception(f"Request failed with status code: {response.status_code} and text: {response.text}")
 
         # if isinstance(response, Exception):
         #     return response
