@@ -6,5 +6,8 @@ class ApiEndpoint:
     BASE_URL = Configs.apiUrl
 
     # Define endpoints
-    PREDICT_BOTTLE = f"{BASE_URL}/processImageBottle"
-    PREDICT_CAN = f"{BASE_URL}/processImageCan"
+    # PREDICT_BOTTLE = f"{BASE_URL}/processImageBottle"
+    # PREDICT_CAN = f"{BASE_URL}/processImageCan"
+    
+    PREDICT_BOTTLE = f"{BASE_URL}/bottle"
+    PREDICT_CAN = f"{BASE_URL}/can"

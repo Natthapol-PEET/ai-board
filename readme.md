@@ -21,3 +21,9 @@ python3 -m venv venv
 ```
 source venv/bin/activate
 ```
+
+## GitHub
+```
+https://github.com/SE-Hub-Thailand/APIServer.ai/tree/main/weights
+https://github.com/PitchanaChk/Bottle-Can-Model/blob/main/model/bottle_api.py
+```
