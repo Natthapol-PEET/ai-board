@@ -6,10 +6,10 @@ ARGS=${@:2}
 
 help__pullDependency="pull dependencics"
 task_pullDependency() {
-  apt-get install -y python3-pip
-  apt-get install -y python3-opencv
+  sudo apt-get install -y python3-pip
+  sudo apt-get install -y python3-opencv
 
-  pip3 install -r requirements.txt
+  sudo pip3 install --break-system-packages -r requirements.txt
 }
 
 help__testCamera="run test for opencv app"
@@ -25,19 +25,19 @@ task_runcvAppPreview() {
 help__deployApp="setup & run opencv app"
 task_deployApp() {
   ## Copy script to systemd
-  cp script/ai_board.service /etc/systemd/system/ai_board.service
+  sudo cp script/ai_board.service /etc/systemd/system/ai_board.service
 
   ## Enable and start the service
-  systemctl enable ai_board.service
-  systemctl start ai_board.service
+  sudo systemctl enable ai_board.service
+  sudo systemctl start ai_board.service
 
   ## Check the status of the service
-  systemctl status ai_board.service
+  sudo systemctl status ai_board.service
 }
 
 help__statusApp="status opencv app"
 task_statusApp() {
-  systemctl status ai_board.service
+  sudo systemctl status ai_board.service
 }
 
 help__logApp="log opencv app"
@@ -47,7 +47,7 @@ task_logApp() {
 
 help__stopApp="stop opencv app"
 task_stopApp() {
-  systemctl stop ai_board.service
+  sudo systemctl stop ai_board.service
 }
 
 

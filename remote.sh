@@ -1,0 +1,1 @@
+sshpass -p '123456' ssh -o StrictHostKeyChecking=no pi@192.168.1.10
