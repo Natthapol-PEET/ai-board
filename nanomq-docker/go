@@ -12,14 +12,18 @@ task_buildNanoMQ() {
 
 help__runNanoMQ="docker run nanomq container"
 task_runNanoMQ() {
-  sudo docker run -d \
-    --name nanomq-container \
-    -p 1883:1883 \
-    -p 8083:8083 \
-    -p 8883:8883 \
-    --restart always \
-    --network="host" \
-    nanomq-image
+  if sudo docker ps -a --format '{{.Names}}' | grep -q '^nanomq-container$'; then
+    echo "🟡 nanomq-container is already running or exists. Skipping..."
+  else
+    sudo docker run -d \
+      --name nanomq-container \
+      -p 1883:1883 \
+      -p 8083:8083 \
+      -p 8883:8883 \
+      --restart always \
+      --network="host" \
+      nanomq-image
+  fi
 }
 
 help__killNanoMQ="docker kill nanomq container"
