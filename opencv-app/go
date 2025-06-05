@@ -29,6 +29,7 @@ task_deployApp() {
 
   ## Enable and start the service
   sudo systemctl enable ai_board.service
+  sudo systemctl daemon-reload
   sudo systemctl start ai_board.service
 
   ## Check the status of the service
