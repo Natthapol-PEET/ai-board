@@ -101,7 +101,9 @@ def on_event_update():
                 AckResponse(
                     id=Globals.transactionId,
                     status=False,
-                    reason=str(resp.strerror) if hasattr(resp, "message") else str(resp),
+                    reason=(
+                        str(resp.strerror) if hasattr(resp, "message") else str(resp)
+                    ),
                 ),
                 qos=2,
             )
@@ -136,6 +138,36 @@ def on_event_update():
     )
 
     # TransactionEvent  Ended
+    key = list(resp.json().keys())[0]
+    dataJson = {}
+
+    if "can" in key:
+        size = resp.json()["can_size"]
+        # size = "can_180"
+        if size == "unknown":
+            size = "0"
+        else:
+            size = size.replace("can_", "").replace("can_", "")
+        dataJson = {
+            "isValidCan": True,
+            "brand": resp.json()["can_brand"],
+            "size": int(size),
+            "confidence": 0.89,
+        }
+    else:
+        size = resp.json()["bottle_size"]
+        # size = "bottel_1600"
+        if size == "unknown":
+            size = "0"
+        else:
+            size = size.replace("bottle_", "").replace("bottel_", "")
+        dataJson = {
+            "isValidBottle": True,
+            "brand": resp.json()["bottle_brand"],
+            "size": int(size),
+            "confidence": 0.89,
+        }
+
     mqtt_client.publish(
         Configs.mqttPublishTopic,
         TransactionEvent(
@@ -145,13 +177,17 @@ def on_event_update():
                 "detail": "SummarizeResult",
                 "result": {
                     "status": resp.status_code,
-                    "data": resp.json(),
+                    # "data": resp.json(),
+                    ### old payload
                     # "data": {
                     #     "isValidBottle": True,
                     #     "brand": "oishi",
                     #     "size": 500,
                     #     "confidence": 0.89,
                     # },
+                    ### new payload
+                    # "data": {"can_brand": "nescafe", "can_size": "can_180"},
+                    "data": dataJson,
                 },
             },
         ),

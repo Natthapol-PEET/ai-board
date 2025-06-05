@@ -1,11 +1,18 @@
+from fastapi import FastAPI
+
+app = FastAPI()
 
 
-            # item = "can"
-            # filename = "can.jpg"
+@app.get("/")
+async def greeting():
+    return {"message": "Hello World"}
 
-            # if Globals.objectType == "bottle":
-            #     item = "bottle"
-            #     filename = "bottle.jpg"
+    # item = "can"
+    # filename = "can.jpg"
 
-            # prediction_local_results = model.process(item, filename)
-            # LogFlight.info(f"prediction_local_results: {prediction_local_results}")
+    # if Globals.objectType == "bottle":
+    #     item = "bottle"
+    #     filename = "bottle.jpg"
+
+    # prediction_local_results = model.process(item, filename)
+    # LogFlight.info(f"prediction_local_results: {prediction_local_results}")
