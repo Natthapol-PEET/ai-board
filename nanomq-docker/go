@@ -7,12 +7,12 @@ ARGS=${@:2}
 
 help__buildNanoMQ="docker build nanomq image"
 task_buildNanoMQ() {
-  docker build -f Dockerfile.nanomq -t nanomq-image .
+  sudo docker build -f Dockerfile.nanomq -t nanomq-image .
 }
 
 help__runNanoMQ="docker run nanomq container"
 task_runNanoMQ() {
-  docker run -d \
+  sudo docker run -d \
     --name nanomq-container \
     -p 1883:1883 \
     -p 8083:8083 \
@@ -24,8 +24,8 @@ task_runNanoMQ() {
 
 help__killNanoMQ="docker kill nanomq container"
 task_killNanoMQ() {
-  docker kill nanomq-container
-  docker rm nanomq-container
+  sudo docker kill nanomq-container
+  sudo docker rm nanomq-container
 }
 
 
