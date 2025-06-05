@@ -7,7 +7,11 @@ ARGS=${@:2}
 
 help__buildNanoMQ="docker build nanomq image"
 task_buildNanoMQ() {
-  sudo docker build -f Dockerfile.nanomq -t nanomq-image .
+  if sudo docker images --format '{{.Repository}}' | grep -q '^nanomq-image$'; then
+    echo "🟡 nanomq-image already exists. Skipping build..."
+  else
+    sudo docker build -f Dockerfile.nanomq -t nanomq-image .
+  fi
 }
 
 help__runNanoMQ="docker run nanomq container"

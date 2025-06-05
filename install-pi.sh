@@ -36,5 +36,5 @@ cd opencv-app
 ./go pullDependency
 echo "✅ Running dependency successfully."
 
-# # ./go deployApp
-# # echo "✅ Running app successfully."
+./go deployApp
+echo "✅ Running app successfully."
