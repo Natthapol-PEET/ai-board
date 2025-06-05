@@ -113,6 +113,7 @@ def on_event_update():
     except Exception:
         LogFlight.error(f"Failed to predict {Globals.objectType}")
 
+        time.sleep(1)
         mqtt_client.publish(
             Configs.mqttPublishTopic,
             AckResponse(
