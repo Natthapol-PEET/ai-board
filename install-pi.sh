@@ -1,5 +1,14 @@
 #!/bin/bash
 
+# echo "🔧 1. ติดตั้งบนทุกเครื่องที่อยากให้เชื่อมกัน"
+# curl -fsSL https://tailscale.com/install.sh | sh
+# echo "🔐 2. Login เข้า Tailscale"
+# sudo tailscale up
+# echo "📡 3. ดู IP Tailscale ของเครื่อง"
+# tailscale ip
+# sudo tailscale down
+
+
 if ! command -v sudo docker version &> /dev/null; then
     sudo apt update && sudo apt upgrade -y
     curl -sSL https://get.docker.com | sh
