@@ -6,7 +6,7 @@ After=network.target
 WorkingDirectory=/home/bottle/Desktop/ai-board/opencv-app
 ExecStart=/usr/bin/python3 /home/bottle/Desktop/ai-board/opencv-app/src/main.py
 Restart=always
-User=pi
+User=bottle
 StandardOutput=inherit
 StandardError=inherit
 
