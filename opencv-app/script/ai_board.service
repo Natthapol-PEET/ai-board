@@ -3,8 +3,8 @@ Description=AI Board Python Script
 After=network.target
 
 [Service]
-WorkingDirectory=/home/pi/Desktop/ai-board/opencv-app
-ExecStart=/usr/bin/python3 /home/pi/Desktop/ai-board/opencv-app/src/main.py
+WorkingDirectory=/home/bottle/Desktop/ai-board/opencv-app
+ExecStart=/usr/bin/python3 /home/bottle/Desktop/ai-board/opencv-app/src/main.py
 Restart=always
 User=pi
 StandardOutput=inherit

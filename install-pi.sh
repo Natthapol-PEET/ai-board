@@ -6,7 +6,9 @@
 # sudo tailscale up
 # echo "📡 3. ดู IP Tailscale ของเครื่อง"
 # tailscale ip
+# tailscale status
 # sudo tailscale down
+# https://login.tailscale.com/admin/machines
 
 
 if ! command -v sudo docker version &> /dev/null; then
@@ -18,7 +20,7 @@ else
     echo "✅ Docker is already installed."
 fi
 
-cd /home/pi/Desktop
+cd /home/bottle/Desktop
 if [ -d "ai-board" ]; then
     cd ai-board
     git pull
@@ -28,7 +30,7 @@ else
 fi
 echo "✅ Download source-code successfully."
 
-cd /home/pi/Desktop/ai-board
+cd /home/bottle/Desktop/ai-board
 echo "🟡 Go to folder ai-board"
 
 cd nanomq-docker
